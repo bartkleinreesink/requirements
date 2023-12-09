@@ -58,18 +58,17 @@ $requirements = [
     new Requirement\WordPressPlugin('woocommerce/woocommerce.php', '8.3.1'),
 ];
 
-// Pass boolean to constructor to throw exceptions when requirements are not met
+// Pass false to the constructor to disable exception throwing, leave empty to enable.
 $validator = new Requirements\Validator(false);
 $validator->addRequirements($requirements);
 
 if (!$validator->valid()) { 
-    // Throw error
+    // Your application does not meet the requirements.
 }
 
-// Or
-
+// Alternatively, you can invoke the validator as a function.
 if (!$validator()) {
-    // Throw error
+    // Your application does not meet the requirements.
 }
 
 App::run();
