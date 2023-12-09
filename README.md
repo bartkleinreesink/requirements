@@ -53,10 +53,12 @@ use Fabrikage\Requirements\Requirement;
 
 $requirements = [
     new Requirement\PHP('8.1'),
+    new Requirement\PHPExtension('curl'),
     new Requirement\WordPress('6.4.1'),
     new Requirement\WordPressPlugin('woocommerce/woocommerce.php', '8.3.1'),
 ];
 
+// Pass boolean to constructor to throw exceptions when requirements are not met
 $validator = new Requirements\Validator(false);
 $validator->addRequirements($requirements);
 

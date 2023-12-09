@@ -5,7 +5,7 @@
 - [x] Add `README.md`
 - [x] Add `CHANGELOG.md`
 - [ ] Add tests
-- [ ] Add better exception handling
+- [ ] Add more specific exceptions
 - [ ] Implement abstract version requirement class for better control
 - [ ] Add PHPdocs
 - [ ] Add more comparators that are supported by `version_compare()`
