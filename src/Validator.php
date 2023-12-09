@@ -13,10 +13,6 @@ final class Validator
 
     public function __construct(bool $throwException = true)
     {
-        if (!defined('ABSPATH')) {
-            throw new ValidatorException('ABSPATH is not defined.');
-        }
-
         $this->throwException = $throwException;
     }
 
