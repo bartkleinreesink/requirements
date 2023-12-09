@@ -14,9 +14,7 @@
 
 Will be added soon.
 
-## Installation
-
-Install the package using composer:
+## Installation with Composer
 
 ```bash
 composer require fabrikage/requirements
@@ -73,3 +71,57 @@ if (!$validator()) {
 
 App::run();
 ```
+
+### WordPress example
+```php
+use Fabrikage\Requirements\Validator;
+
+class App
+{
+    private static Validator $validator;
+
+    public static function run(Validator $validator): void
+    {
+        if (!$validator->valid()) {
+            static::$validator = $validator;
+            static::handleErrors($validator);
+
+            return; // Block further execution
+        }
+
+        static::init();
+    }
+
+    private static function init(): void
+    {
+        // Initialize your application
+    }
+
+    private static function handleErrors(): void
+    {
+        add_action('admin_notices', function () {
+            static::renderErrors();
+        });
+    }
+
+    private static function renderErrors(): void
+    {
+        if (empty($errors = static::$validator->getErrors())) {
+            return;
+        }
+
+        echo sprintf(
+            '<div class="notice notice-error"><p><strong>%s</strong></p><p>%s</p><ul>%s</ul></div></p>',
+            PLUGIN_NAME,
+            __('The plugin could not be loaded because the following requirements are not met:', 'plugin-name'),
+            implode('', array_map(function (string $error) {
+                return sprintf('<li>- %s</li>', $error);
+            }, $errors))
+        );
+    }
+}
+```
+
+This would result in the following output if not all requirements are met:
+
+![WordPress notification](screenshot.png)
