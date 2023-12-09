@@ -7,11 +7,11 @@ class WordPress extends AbstractRequirement
     public function getVersion(): string
     {
         if (!defined('WPINC')) {
-            throw new RequirementException('WordPress is not loaded.');
+            throw new RequirementException('WordPress is not loaded. WPINC is not defined.');
         }
 
-        if (did_action('init') === 0) {
-            throw new RequirementException('WordPress is not initialized.');
+        if (!function_exists('get_bloginfo')) {
+            require_once ABSPATH . 'wp-includes/functions.php';
         }
 
         return get_bloginfo('version');

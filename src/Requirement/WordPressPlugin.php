@@ -13,11 +13,7 @@ class WordPressPlugin extends AbstractRequirement
     public function __construct(string $plugin, string $version = '', bool $throwException = true)
     {
         if (!defined('WPINC')) {
-            throw new RequirementException('WordPress is not loaded.');
-        }
-
-        if (did_action('init') === 0) {
-            throw new RequirementException('WordPress is not initialized.');
+            throw new RequirementException('WordPress is not loaded. WPINC is not defined.');
         }
 
         $this->plugin = $plugin;
