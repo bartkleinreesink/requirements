@@ -13,16 +13,19 @@ trait VersionParser
         '=' => 'equal to',
     ];
 
-    public function getVersionComparator(string $version = ''): string
+    private function cleanVersion(string $version = ''): string
     {
         if (isset($this->version) && empty($version)) {
             $version = $this->version;
         }
 
-        $version = str_replace([' ', '-'], '', $version);
+        return str_replace([' ', '-'], '', $version);
+    }
 
+    public function getVersionComparator(string $version = ''): string
+    {
         foreach ($this->comparators as $comparator => $description) {
-            if (strpos($version, $comparator) === 0) {
+            if (strpos($this->cleanVersion($version), $comparator) === 0) {
                 return $comparator;
             }
         }
@@ -32,14 +35,8 @@ trait VersionParser
 
     public function removeVersionComparator(string $version = ''): string
     {
-        if (isset($this->version) && empty($version)) {
-            $version = $this->version;
-        }
-
-        $version = str_replace([' ', '-'], '', $version);
-
         foreach ($this->comparators as $comparator => $description) {
-            if (strpos($version, $comparator) === 0) {
+            if (strpos($this->cleanVersion($version), $comparator) === 0) {
                 $version = substr($version, strlen($comparator));
             }
         }
@@ -49,21 +46,17 @@ trait VersionParser
 
     /**
      * @param string $version
-     * @return array
+     * @return array|string
      */
     public function parseVersion(string $version = '', bool $asString = false): array|string
     {
-        if (isset($this->version) && empty($version)) {
-            $version = $this->version;
-        }
-
+        $version = $this->cleanVersion($version);
         $version = $this->removeVersionComparator($version);
 
         if ($asString) {
             return $version;
         }
 
-        $version = str_replace([' ', '-'], '', $version);
         $version = explode('.', $version);
 
         $major = $version[0] ?? 0;
