@@ -84,7 +84,7 @@ class App
     {
         if (!$validator->valid()) {
             static::$validator = $validator;
-            static::handleErrors($validator);
+            static::handleErrors();
 
             return; // Block further execution
         }
