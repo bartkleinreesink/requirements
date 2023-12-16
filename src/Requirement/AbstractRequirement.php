@@ -4,22 +4,12 @@ namespace Fabrikage\Requirements\Requirement;
 
 abstract class AbstractRequirement implements RequirementInterface
 {
-    /**
-     * @var bool $throwException
-     */
     public bool $throwException;
+    public string $exceptionType = RequirementException::class;
 
-    /**
-     * @var string $version
-     */
-    public string $version;
-
-    use \Fabrikage\Requirements\Traits\VersionParser;
-
-    public function __construct(string $version = '', bool $throwException = true)
+    public function __construct(bool $throwException = true)
     {
         $this->throwException = $throwException;
-        $this->version = $version;
     }
 
     protected function isRequirementMet(): bool
@@ -27,25 +17,13 @@ abstract class AbstractRequirement implements RequirementInterface
         $isMet = $this->isMet();
 
         if (!$isMet && $this->throwException) {
-            throw new RequirementException($this->getErrorMessage());
+            throw new $this->exceptionType($this->getErrorMessage());
         }
 
         return $isMet;
     }
 
-    public function getVersion(): string
-    {
-        return $this->removeVersionComparator($this->version);
-    }
-
-    public function isMet(): bool
-    {
-        return version_compare(
-            $this->getVersion(),
-            $this->removeVersionComparator($this->version),
-            $this->getVersionComparator($this->version)
-        );
-    }
+    abstract public function isMet(): bool;
 
     abstract public function getErrorMessage(): string;
 
