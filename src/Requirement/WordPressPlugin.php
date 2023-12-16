@@ -2,7 +2,10 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
-class WordPressPlugin extends AbstractRequirement
+/**
+ * Checks if a WordPress plugin is active and checks the version.
+ */
+class WordPressPlugin extends AbstractVersionRequirement
 {
     /**
      * @var string $plugin

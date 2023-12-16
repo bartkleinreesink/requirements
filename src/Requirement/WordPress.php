@@ -2,7 +2,10 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
-class WordPress extends AbstractRequirement
+/**
+ * Checks the WordPress version.
+ */
+class WordPress extends AbstractVersionRequirement
 {
     public function getVersion(): string
     {

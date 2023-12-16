@@ -2,6 +2,9 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
+/**
+ * Checks if a PHP extension is loaded.
+ */
 class PHPExtension extends AbstractRequirement
 {
     private string $extension;
@@ -20,6 +23,6 @@ class PHPExtension extends AbstractRequirement
 
     public function getErrorMessage(): string
     {
-        return sprintf('PHP extension %s is not loaded.', $this->extension);
+        return sprintf('PHP extension "%s" is not loaded.', $this->extension);
     }
 }

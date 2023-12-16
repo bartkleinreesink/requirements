@@ -2,7 +2,10 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
-class PHP extends AbstractRequirement
+/**
+ * Checks the PHP version.
+ */
+class PHP extends AbstractVersionRequirement
 {
     public function getVersion(): string
     {

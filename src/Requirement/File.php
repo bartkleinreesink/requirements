@@ -2,6 +2,9 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
+/**
+ * Checks if a file exists.
+ */
 class File extends AbstractRequirement
 {
     private string $filepath;

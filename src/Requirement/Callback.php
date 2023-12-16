@@ -2,6 +2,9 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
+/**
+ * Checks if a callback function returns true.
+ */
 class Callback extends AbstractRequirement
 {
     private string $id;
