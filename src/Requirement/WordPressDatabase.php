@@ -2,7 +2,10 @@
 
 namespace Fabrikage\Requirements\Requirement;
 
-class MySQL extends AbstractRequirement
+/**
+ * Checks the WordPress database version.
+ */
+class WordPressDatabase extends AbstractVersionRequirement
 {
     public function getVersion(): string
     {
@@ -14,7 +17,7 @@ class MySQL extends AbstractRequirement
     public function getErrorMessage(): string
     {
         return sprintf(
-            'MySQL version %s does not meet the version requirement of %s.',
+            'WordPress database version %s does not meet the version requirement of %s.',
             $this->getVersion(),
             $this->version
         );
